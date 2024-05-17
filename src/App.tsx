@@ -84,7 +84,7 @@ function App() {
         </Toolbar>
       </AppBar> 
       <AddTodo addTodo={addTodo} />
-      <div className="ag-theme-material" style={{ height: 400, width: 600 }}>
+      <div className="ag-theme-material" style={{ height: 400, width: 800 }}>
         <AgGridReact 
           rowData={todos}
           columnDefs={columnDefs}
