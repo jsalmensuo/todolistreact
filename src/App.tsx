@@ -1,3 +1,4 @@
+// css change for todolist site not showing on git...
 import { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ColDef } from 'ag-grid-community';
@@ -84,7 +85,7 @@ function App() {
         </Toolbar>
       </AppBar> 
       <AddTodo addTodo={addTodo} />
-      <div className="ag-theme-material" style={{ height: 400, width: 800 }}>
+      <div className="ag-theme-material" style={{ height: 400, width: 900 }}>
         <AgGridReact 
           rowData={todos}
           columnDefs={columnDefs}
