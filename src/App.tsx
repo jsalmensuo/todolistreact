@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
+import { ColDef } from 'ag-grid-community';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -12,10 +13,16 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 
 
-function App() {
-  const [todos, setTodos] = useState([]);
+interface Todo {
+  description: string;
+  date: string;
+  priority: string;
+}
 
-  const columnDefs = [
+function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const columnDefs: ColDef[] = [
     { field: 'description', sortable: true, filter: true},
     { field: 'date', sortable: true, filter: true},
     { field: 'priority', sortable: true, filter: true},
@@ -23,7 +30,7 @@ function App() {
       headerName: '',
       field: 'id',
       width: 90,
-      cellRenderer: params => 
+      cellRenderer: (params: any) => 
       <IconButton onClick={() => deleteTodo(params.value)} size="small" color="error">
         <DeleteIcon />
       </IconButton> 
@@ -42,28 +49,28 @@ function App() {
   }
 
   // Add keys to the todo objects
-  const addKeys = (data) => {
+  const addKeys = (data: Todo[]) => {
     const keys = Object.keys(data);
     const valueKeys = Object.values(data).map((item, index) => 
     Object.defineProperty(item, 'id', {value: keys[index]}));
     setTodos(valueKeys);
   }
-  const addTodo = (newTodo) => {
+  const addTodo = (newTodo: Todo) => {
     fetch('https://todolist-4da72-default-rtdb.europe-west1.firebasedatabase.app/items/.json',
     {
       method: 'POST',
       body: JSON.stringify(newTodo)
     })
-    .then(response => fetchItems())
+    .then(_response => fetchItems()) // _ means that the object is not ment to be used
     .catch(err => console.error(err))
   }
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id:number) => {
     fetch(`https://todolist-4da72-default-rtdb.europe-west1.firebasedatabase.app/items/${id}.json`,
     {
       method: 'DELETE',
     })
-    .then(response => fetchItems())
+    .then(_response => fetchItems())
     .catch(err => console.error(err))
   }
 

@@ -6,7 +6,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function AddTodo(props) {
+interface AddTodoProps {
+  addTodo: (todo: Todo) => void; //addTodo expects a parameter named todo with type of Todo
+}
+interface Todo {
+  description: string;
+  date: string;
+  priority: string;
+}
+
+function AddTodo(props: AddTodoProps) {
     const [open, setOpen] = useState(false);
     const [todo, setTodo] = useState({description: '', date: '', priority: ''});
 
@@ -23,7 +32,7 @@ function AddTodo(props) {
         handleClose();
       }
 
-      const inputChanged = (event) => {
+      const inputChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTodo({...todo, [event.target.name]: event.target.value});
       }
 
